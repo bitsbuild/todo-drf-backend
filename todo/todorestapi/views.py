@@ -24,10 +24,8 @@ def get_specific_to_do_item(request,id):
 
 
 @api_view(['POST'])
-def add_an_item(request):
+def add_an_item(request,name,desc):
     try:    
-        name = request.data.get('name')
-        desc = request.data.get('desc')
         Task.objects.create(
             task_name=name,
             task_description=desc
