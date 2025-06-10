@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from todorestapi.models import Task
 from todorestapi.serializers import TaskSerializer
-
+from rest_framework import status
 
 
 @api_view(['GET'])
@@ -25,7 +25,16 @@ def get_specific_to_do_item(request,id):
 
 @api_view(['POST'])
 def add_an_item(request):
-    return HttpResponse("")
+    try:    
+        name = request.data.get('name')
+        desc = request.data.get('desc')
+        Task.objects.create(
+            task_name=name,
+            task_description=desc
+        )
+        return Response({"Status":"Task Creation Successfully"},status=status.HTTP_201_CREATED)
+    except Exception as e:
+        return Response({"Status":"Task Creation Failed"},status=status.HTTP_400_BAD_REQUEST)
 
 
 
