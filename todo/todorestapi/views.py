@@ -7,6 +7,7 @@ from todorestapi.serializers import TaskSerializer
 from rest_framework import status
 
 
+
 @api_view(['GET'])
 def get_all_to_do_items(request):
     tasks = Task.objects.all()
@@ -39,9 +40,18 @@ def add_an_item(request):
 
 
 @api_view(['PUT'])
-def update_an_item(request):
-    return HttpResponse("")
-
+def update_an_item(request,id):
+    try:
+        name = request.data.get('name')
+        desc = request.data.get('desc')
+        task_to_update = Task.objects.get(pk=id)
+        task_to_update.task_name = name
+        task_to_update.task_description = desc
+        task_to_update.save()
+        return Response({"message":"task update successful"},status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"message":"task update failed"},status=status.HTTP_400_BAD_REQUEST)
+    
 
 
 @api_view(['DELETE'])
