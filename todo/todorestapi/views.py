@@ -45,5 +45,9 @@ def update_an_item(request):
 
 
 @api_view(['DELETE'])
-def remove_an_item(request):
-    return HttpResponse("")
+def remove_an_item(request,id):
+    try:
+        Task.objects.get(pk=id).delete()
+        return Response({"message":"required object delete"})
+    except Exception as e:
+        return Response({"message":"could not delete"})
