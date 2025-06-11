@@ -20,5 +20,5 @@ from todorestapi.swagger import schema_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('todo/',include('todorestapi.urls')),
-    path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'), 
+    path('', schema_view.with_ui('swagger'), name='schema-swagger-ui'), 
 ]
