@@ -61,3 +61,15 @@ def remove_an_item(request,id):
         return Response({"message":"required object delete"})
     except Exception as e:
         return Response({"message":"could not delete"})
+
+
+
+@api_view(['PUT'])
+def mark_as_done(request,id):
+    try:
+        task = Task.objects.get(pk=id)
+        task.is_completed = True
+        task.save()
+        return Response({"message":"task marked done"},status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"message":"task marking failed","error":str(e)},status=status.HTTP_400_BAD_REQUEST)

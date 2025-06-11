@@ -8,8 +8,8 @@ A simple Django + Django REST Framework API for managing ToDo tasks.
 
 ```bash
 # 1. Clone the repository
-git clone <your-repo-url>
-cd <your-project-directory>
+git clone https://github.com/bitsbuild/todo-drf-backend-for-learning.git
+cd todo-drf-backend-for-learning/todo
 
 # 2. Create and activate a virtual environment (recommended)
 python -m venv env
@@ -56,6 +56,7 @@ from todorestapi.views import (
     get_specific_to_do_item,
     remove_an_item,
     update_an_item,
+    mark_as_done,
 )
 
 urlpatterns = [
@@ -64,6 +65,7 @@ urlpatterns = [
     path('api/tasks/add/', add_an_item),
     path('api/tasks/update/<uuid:id>/', update_an_item),
     path('api/tasks/delete/<uuid:id>/', remove_an_item),
+    path('api/tasks/mark-done/<uuid:id>/', mark_as_done),
 ]
 ```
 
@@ -193,6 +195,28 @@ http://127.0.0.1:8000/todo/api/tasks/
 
 ---
 
+### 🔹 PUT `/api/tasks/mark-done/<uuid:id>/`
+**Description:** Mark a task as completed.
+
+- **Method:** `PUT`
+- **Path Param:** `id` (UUID of the task)
+- **Success Response:** `200 OK`
+```json
+{
+  "message": "task marked done"
+}
+```
+
+- **Failure Response:** `400 Bad Request`
+```json
+{
+  "message": "task marking failed",
+  "error": "Reason for failure"
+}
+```
+
+---
+
 ## 🧾 Task Model Overview
 
 ```python
@@ -206,21 +230,13 @@ class Task(models.Model):
 
 ### Field Details:
 
-| Field           | Type       | Description                                |
-|----------------|------------|--------------------------------------------|
-| `id`           | UUID       | Unique identifier (auto-generated)         |
-| `task_name`    | CharField  | Title of the task                          |
-| `task_description` | CharField | Description or details of the task        |
-| `is_completed` | Boolean    | Currently always `false`; kept for extensibility |
-| `created_at`   | DateTime   | Timestamp when the task was created        |
-
----
-
-## 🧩 Why `is_completed` Exists
-
-In this project, completed tasks are **deleted** instead of being marked. As such, the `is_completed` field is **not used** in the current workflow.
-
-However, it remains in the model to make this project **extensible** for users who want to implement a “Mark as Done” feature instead of deletion. Feel free to build upon it!
+| Field           | Type       | Description                                      |
+|----------------|------------|--------------------------------------------------|
+| `id`           | UUID       | Unique identifier (auto-generated)               |
+| `task_name`    | CharField  | Title of the task                                |
+| `task_description` | CharField | Description or details of the task          |
+| `is_completed` | Boolean    | Default always `false`; status whether task is done or not |
+| `created_at`   | DateTime   | Timestamp when the task was created              |
 
 ---
 
