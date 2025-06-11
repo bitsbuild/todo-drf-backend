@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+from todorestapi.swagger import schema_view
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('todo/',include('todorestapi.urls'))
+    path('todo/',include('todorestapi.urls')),
+    path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'), 
 ]

@@ -5,3 +5,11 @@ class TaskSerializer(serializers.Serializer):
     task_description = serializers.CharField()
     is_completed = serializers.BooleanField()
     created_at  = serializers.DateTimeField()
+
+class AddSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    desc = serializers.CharField()
+
+class UpdateSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    desc = serializers.CharField()  
