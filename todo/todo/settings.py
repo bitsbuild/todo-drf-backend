@@ -6,8 +6,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0vf)=3_7mtszeccu4u@f18p8nu8=2g%f1u*z-f7e&9v4b%a04@'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG =  False
+ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
